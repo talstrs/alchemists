@@ -2,7 +2,7 @@ package com.alchemists.infra.matchreply;
 
 import java.util.Date;
 
-public class MatchReplyMatchDto {
+public class MatchReplyDto {
 	private String matchReplySeq;
 	private String matchReplyTeamSeqF;
 	private Integer matchReplyJoinNY;
