@@ -25,6 +25,13 @@ public class MatchDto {
 	private Date matchModDate;
 	private Integer matchDelNY;
 
+	// matchReply
+	private String matchReplySeq;
+	private String matchReplyTeamSeqF;
+	private Integer matchReplyJoinNY;
+	private Date matchReplyRegDate;
+	private Date matchReplyModDate;
+
 	public String getMatchSeq() {
 		return matchSeq;
 	}
@@ -191,6 +198,46 @@ public class MatchDto {
 
 	public void setMatchDelNY(Integer matchDelNY) {
 		this.matchDelNY = matchDelNY;
+	}
+
+	public String getMatchReplySeq() {
+		return matchReplySeq;
+	}
+
+	public void setMatchReplySeq(String matchReplySeq) {
+		this.matchReplySeq = matchReplySeq;
+	}
+
+	public String getMatchReplyTeamSeqF() {
+		return matchReplyTeamSeqF;
+	}
+
+	public void setMatchReplyTeamSeqF(String matchReplyTeamSeqF) {
+		this.matchReplyTeamSeqF = matchReplyTeamSeqF;
+	}
+
+	public Integer getMatchReplyJoinNY() {
+		return matchReplyJoinNY;
+	}
+
+	public void setMatchReplyJoinNY(Integer matchReplyJoinNY) {
+		this.matchReplyJoinNY = matchReplyJoinNY;
+	}
+
+	public Date getMatchReplyRegDate() {
+		return matchReplyRegDate;
+	}
+
+	public void setMatchReplyRegDate(Date matchReplyRegDate) {
+		this.matchReplyRegDate = matchReplyRegDate;
+	}
+
+	public Date getMatchReplyModDate() {
+		return matchReplyModDate;
+	}
+
+	public void setMatchReplyModDate(Date matchReplyModDate) {
+		this.matchReplyModDate = matchReplyModDate;
 	}
 
 }
