@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alchemists.infra.stadium.StadiumDao">
+
+	<resultMap id="resultMapObj"
+		type="com.alchemists.infra.stadium.StadiumDto"></resultMap>
+		
+	<select id="stadiumList">
+		select
+			stadiumSeq,
+			stadiumName,
+			stadiumAddr,
+			stadiumManagerName,
+			stadiumRegDate,
+			stadiumModDate,
+			stadiumDelNY
+		from
+			stadium
+	</select>
+	
+	<select id="selectStadium">
+		select
+			stadiumSeq,
+			stadiumName,
+			stadiumAddr,
+			stadiumManagerName,
+			stadiumRegDate,
+			stadiumModDate,
+			stadiumDelNY
+		from 
+			stadium
+		where
+			1=1
+		and
+			stadiumSeq=#{stadiumSeq}
+	</select>
+	
+	<insert id="insertStadium">
+		insert into stadium (
+			stadiumName,
+			stadiumAddr,
+			stadiumManagerName,
+			stadiumRegDate,
+			stadiumModDate,
+			stadiumDelNY
+		) values (
+			#{stadiumName},
+			#{stadiumAddr},
+			#{stadiumManagerName},
+			now(),
+			now(),
+			#{stadiumDelNY}
+	</insert>
+	
+	<update id="updateStadium">
+		update stadium
+		set
+			stadiumName=#{stadiumName},
+			stadiumAddr=#{stadiumAddr},
+			stadiumManagerName=#{stadiumManagerName},
+			stadiumModDate=now(),
+			stadiumDelNY=#{stadiumDelNY}
+	</update>
+	
+	<update id="ultStadium">
+		update stadium
+		set
+			stadiumDelNY=1
+		where
+			1=1
+		and
+			stadiumSeq=#{stadiumSeq}
+	</update>
+	
+	<delete id="delStadium">
+		delete from stadium
+		where
+			stadiumSeq=#{stadiumSeq}
+	</delete>
+
+</mapper>
