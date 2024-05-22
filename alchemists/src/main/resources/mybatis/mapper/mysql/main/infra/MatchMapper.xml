@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alchemists.infra.match.MatchDao">
+
+	<resultMap id="resultMapObj"
+		type="com.alchemists.infra.match.MatchDto"></resultMap>
+		
+	<sql id="commonSelectMatch">
+		FROM Match m
+		LEFT JOIN matchreply mr ON m.matchSeq = mr.matchSeqF 
+		LEFT JOIN stadium s ON m.stadiumSeqF = s.stadiumSeq
+		LEFT JOIN timeline tl ON m.matchSeq = tl.matchSeqF
+		LEFT JOIN team t ON m.matchHomeTeamSeqF = t.teamSeq
+		
+		WHERE 1=1
+		
+			<if test="voDelNy != null and !voDelNy.equals('')">AND m.matchDelNy = #{voDelNy}</if>
+			
+		<choose>
+			<when test="voOptionDate == 1">AND m.matchRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			<when test="voOptionDate == 2">AND m.matchModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+		</choose>
+
+		<choose>
+			<when test="voOption == 1">AND m.matchSeq = #{voValue}</when>
+		</choose>
+	</sql>
+
+	<select id="selectListMatchWithPaging" resultMap="resultMapObj">
+	<include refid="base.selectHeader" />
+			select
+				m.matchSeq,
+			    m.matchDateTime,
+			    m.matchCancelNY,
+			    m.matchCancelMemo,
+			    m.matchHomeTeamSeqF,
+			    m.matchHomeYellowCardCount,
+			    m.matchHomeRedCardCount,
+			    m.matchHomeGoalCount,
+			    m.matchHomeFoulCount,
+			    m.matchHomeOwnGoalCount,
+			    m.matchHomeTotalGoalCount,
+			    m.matchAwayTeamSeqF,
+			    m.matchAwayYellowCardCount,
+			    m.matchAwayRedCardCount,
+			    m.matchAwayGoalGount,
+			    m.matchAwayFoulCount,
+			    m.matchAwayOwnGoalCount,
+			    m.matchAwayTotalGoalCount,
+			    m.matchRegDate,
+			    m.matchModDate,
+			    m.matchDelNY,
+			    s.stadiumSeq,
+			    s.stadiumName,
+			    s.stadiumAddr,
+			    s.stadiumManagerName,
+			    t.teamName,
+			    t.teamWinsCount,
+			    t.teamGoalCount
+				
+		<include refid="commonSelectMatch" />
+		ORDER BY m.matchSeq desc
+		<include refid="base.selectFooterMysql" />
+	</select>
+	
+	<select id="selectCountMatch" resultType="Integer">
+		SELECT COUNT(*)
+			<include refid="commonSelectMatch" />
+	</select>
+	
+	
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+			select
+		codeSeq
+		,codeName
+		,codeGroupSeqF
+		,codeGroupName as xcodeGroupName
+		where 1=1
+		AND codeDelNy=0
+	</select>
+	
+
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+			codeSeq
+			,codeName
+			,codeDelNy
+			,codeModDate
+			,codeRegDate
+			From code
+		where 1=1
+				and codeSeq=#{codeSeq}
+	</select>
+
+	<insert id="insert">
+		insert into code(
+			codeName
+		    ,codeDelNy
+		    ,codeGroupSeqF
+		   )values(
+			    #{codeName}
+			    ,0
+			    ,#{codeGroupSeqF}
+		    )
+
+		<selectKey resultType="String" keyProperty="codeSeq"
+			order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+
+	<update id="update">
+		UPDATE code
+		SET
+		codeName=#{codeName}
+		,codeGroupSeqF=#{codeGroupSeqF}
+		where 1=1
+			and codeSeq=#{codeSeq}
+	</update>
+
+	<update id="uelete">
+		update code
+		set 
+		codeDelNy=1
+		where 1=1
+		 and codeSeq = #{codeSeq}
+	</update>
+
+	<delete id="delete">
+		delete From code
+			where 1=1
+		and codeSeq=#{codeSeq}
+	</delete>
+	
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+			SELECT 
+				codeSeq
+				, codeName
+				, codeGroupSeqF
+			FROM
+				code
+			WHERE 1=1
+				AND codeDelNy = 0
+	   </select>
+	
+
+</mapper>

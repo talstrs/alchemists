@@ -1,0 +1,1 @@
+Open a new ticket on our support site https://danfisher.ticksy.com to request PSD files.
