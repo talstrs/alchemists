@@ -8,11 +8,7 @@ public class CodeGroupController {
 	
 	
 	@Autowired
-	CodeGroupService service;
-	
-	
+	CodeGroupService codegroupservice;
 
-	
-	
 	
 }

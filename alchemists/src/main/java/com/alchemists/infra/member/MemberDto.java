@@ -11,8 +11,18 @@ public class MemberDto {
 	private Integer memberGenderCD;
 	private Integer memberTypeCD;
 	private Integer memberPhoneNum;
+	private Integer memberDelNy;
 	private Date memberModDate;
 	private Date memberRegDate;
+
+	
+	public Integer getMemberDelNy() {
+		return memberDelNy;
+	}
+
+	public void setMemberDelNy(Integer memberDelNy) {
+		this.memberDelNy = memberDelNy;
+	}
 
 	public String getMemberSeq() {
 		return memberSeq;

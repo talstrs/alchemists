@@ -1,15 +1,43 @@
 package com.alchemists.infra.member;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/*
- * 로직을 처리하는 클래스
- * DAO의 구현체를 호출하는 역할을 한다고 보면됨
- */
 
 @Service
 public class MemberService {
+	
+	@Autowired
+	MemberDao memberDao;
+	
+	public List<MemberDto> memberList(MemberVo vo) {
+		return memberDao.memberList(vo);
+	}
+	
+	public MemberDto selectMemberOne(MemberDto dto) {
+		return memberDao.selectMemberOne(dto);
+	}
 
+	public int memberInst(MemberDto dto) {
+		return memberDao.memberInst(dto);
+	}
+	
+	public int memberUpdt(MemberDto dto) {
+		return memberDao.memberUpdt(dto);
+	}
+	
+	public int memberUelt(MemberDto dto) {
+		return memberDao.memberUelt(dto);
+	}
+	
+	public int memberDelt(MemberDto dto) {
+		return memberDao.memberDelt(dto);
+	}
+	
+	public List<MemberDto> selectListWithoutPaging(MemberVo vo) {
+		return memberDao.selectListWithoutPaging(vo);
+	}
 
 }
