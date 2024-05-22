@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alchemists.infra.timeline.TimelineDao">
+
+<resultMap id="resultMapObj" type="com.alchemists.infra.timeline.TimelineDto"></resultMap>
+
+	<!-- select 공통 구문 SQL -->
+		<sql id ="selectCommonTimeline">
+			from
+				timeline a   
+			<!-- 조인문 start -->
+			inner join
+				team b
+			on
+				a.timelineHomeTeamSeqF=b.teamSeq
+			
+			inner join
+				team c
+			on
+				a.timelineAwayTeamSeqF=c.teamSeq
+				
+			inner join
+				member d
+			on a.timelineMemberSeqF=d.memberSeq
+			
+			inner join
+				match e
+			on a.timelineMatchSeqF=d.matchSeq
+			<!-- 조인문 end -->
+			where 1=1
+		</sql>
+		
+	<select id="selectTimelineList" resultMap="resultMapObj">
+		<include refid="base.selectHeader" />
+			select
+				a.timelineSeq
+				,a.timelineDelNY
+				,a.timelineFlowCD
+				,a.timelineActCD
+				,a.timelineTimeStamp
+				,a.timelineHomeTeamSeqF
+				,a.timelineAwayTeamSeqF
+				,a.timelineMemberSeqF
+				,a.timelineMatchSeqF
+				,a.timelineRegDate
+				,a.timelineModDate
+		
+		<include refid="selectCommonTimeline" /> 
+		order by a.timelineSeq 
+		limit 99999999999
+		<include refid="base.selectFooterMysql" />
+	</select>
+	
+	
+	<select id="getTotalTimelineCount" resultType="Integer">
+		select count(*)
+		<include refid="selectCommonTimeline"></include>
+	</select>
+	
+	<!-- 멤버 정보 셀렉문 -->
+	<select id="selectTimelineOne" resultMap="resultMapObj">
+		select
+				a.timelineSeq
+				,a.timelineDelNY
+				,a.timelineActCD
+				,a.timelineFlowCD
+				,a.timelineTimeStamp
+				,a.timelineHomeTeamSeqF
+				,a.timelineAwayTeamSeqF
+				,a.timelineMemberSeqF
+				,a.timelineMatchSeqF
+				,a.timelineRegDate
+				,a.timelineModDate
+			
+		from
+			timeline a
+			
+			
+		where 1=1
+		and
+			a.timelineSeq=#{timelineSeq}
+	</select>
+	
+	<!--  Add  -->
+	<insert id="timelineInst">
+		insert into timeline (
+			timelineDelNY
+			,timelineActCD
+			,timelineFlowCD
+			,timelineTimeStamp
+			,timelineHomeTeamSeqF
+			,timelineAwayTeamSeqF
+			,timelineMemberSeqF
+			,timelineMatchSeqF
+			,timelineRegDate
+			,timelineModDate
+		
+			) values (
+				#{timelineDelNY},
+				#{timelineActCD},
+				#{timelineFlowCD},
+				#{timelineTimeStamp},
+				#{timelineHomeTeamSeqF},
+				#{timelineAwayTeamSeqF},
+				#{timelineMemberSeqF},
+				#{timelineMatchSeqF},
+				now(),
+				now()
+			);
+	</insert>
+	
+	<!-- 정보 수정 -->
+	<update id="timelineUpdt">
+		update timeline
+		set
+			timelineActCD=#{timelineActCD},
+			timelineFlowCD=#{timelineFlowCD},
+			timelineTimeStamp=#{timelineTimeStamp},
+			timelineHomeTeamSeqF=#{timelineHomeTeamSeqF},
+			timelineAwayTeamSeqF=#{timelineAwayTeamSeqF},
+			timelineMemberSeqF=#{timelineMemberSeqF},
+			timelineMatchSeqF=#{timelineMatchSeqF},
+			timelineModDate=now()
+			
+		where 1=1
+			and timelineSeq=#{timelineSeq}
+	</update>
+	
+	<!-- 삭제 / Uelete -->
+	<update id="timelineUelt">
+		update timeline
+		set
+			timelineDelNY=1
+		where 1=1
+		and
+			timelineSeq=#{timelineSeq}
+	</update>
+	
+	<!-- 아예 삭제 -->
+	<delete id="timelineDelt">
+		delete from timeline
+		where 1=1
+		and
+			timelineSeq=#{timelineSeq}
+	</delete>
+
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		select 
+		a.timelineSeq
+		,a.timelineDelNY
+		,a.timelineActCD
+		,a.timelineTimeStamp
+		,a.timelineHomeTeamSeqF
+		,a.timelineAwayTeamSeqF
+		,a.timelineMemberSeqF
+		,a.timelineMatchSeqF
+		,a.timelineRegDate
+		,a.timelineModDate
+		from timeline a
+		where 1=1
+			AND timelineDelNY=0
+	</select>
+   
+</mapper>

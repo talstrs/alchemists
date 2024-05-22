@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alchemists.infra.member.MemberDao">
+
+<resultMap id="resultMapObj" type="com.alchemists.infra.member.MemberDto"></resultMap>
+
+	<!-- select 공통 구문 SQL -->
+		<sql id ="selectCommonMember">
+			from
+				member a   
+			where 1=1
+		</sql>
+		
+	<select id="memberList" resultMap="resultMapObj">
+		<include refid="base.selectHeader" />
+			select
+				a.memberSeq
+				,a.memberName
+				,a.memberID
+				,a.memberPwd
+				,a.memberBirthday
+				,a.memberGenderCD
+				,a.memberTypeCD
+				,a.memberPhoneNum
+				,a.memberDelNy
+				,a.memberRegDate
+				,a.memberModDate
+		
+		<include refid="selectCommonMember" /> 
+		order by a.memberSeq desc
+		limit 99999999999
+		<include refid="base.selectFooterMysql" />
+	</select>	
+
+	
+	<select id="getTotalMemberCount" resultType="Integer">
+		select count(*)
+		<include refid="selectCommonMember"></include>
+	</select>
+	
+	<!-- 셀렉원 -->
+	<select id="selectMemberOne" resultMap="resultMapObj">
+		select
+				a.memberSeq
+				,a.memberName
+				,a.memberID
+				,a.memberPwd
+				,a.memberBirthday
+				,a.memberGenderCD
+				,a.memberTypeCD
+				,a.memberPhoneNum
+				,a.memberDelNy
+				,a.memberRegDate
+				,a.memberModDate
+			
+		from
+			member a
+			
+		where 1=1
+		and
+			a.memberSeq=#{memberSeq}
+	</select>
+
+	<!--  Add Member -->
+	<insert id="memberInst">
+		insert into member (
+			memberName
+			,memberID
+			,memberPwd
+			,memberBirthday
+			,memberGenderCD
+			,memberTypeCD
+			,memberPhoneNum
+			.memberDelNy
+			,memberRegDate
+			,memberModDate
+			) values (
+				#{memberName},
+				#{memberID},
+				#{memberPwd},
+				#{memberBirthday},
+				#{memberGenderCd},
+				#{memberTypeCd},
+				#{memberPhoneNum},
+				#{memberDelNy},
+				now(),
+				now()
+			);
+	</insert>
+
+	<!-- 멤버 정보 수정 -->
+	<update id="memberUpdt">
+		update member
+		set
+			memberID=#{memberID},
+			memberBirthday=#{memberBirthday},
+			memberPwd=#{memberPwd},
+			memberName=#{memberName},
+			memberGenderCd=#{memberGenderCd},
+			memberTypeCd=#{memberTypeCd},
+			memberAddr=#{memberAddr},
+			memberDelNy=#{memberDelNy},
+			memberPhoneNum=#{memberPhoneNum},
+			memberModDate=now()
+			
+		where 1=1
+			and memberSeq=#{memberSeq}
+	</update>							
+
+	<!-- 멤버 삭제 / Uelete -->
+	<update id="memberUelt">
+		update member
+		set
+			memberDelNy=1
+		where 1=1
+		and
+			memberSeq=#{memberSeq}
+	</update>
+
+	<!-- 멤버 삭제 / 아예 삭제 -->
+	<!-- 연결된 다른 테이블에서 해당 데이터 삭제하기 -->
+	<delete id="memberDelt">
+		delete from member
+		where 1=1
+		and
+			memberSeq=#{memberSeq}
+	</delete>
+
+
+	
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		select 
+			a.memberSeq
+			,a.memberName
+			,a.memberID
+			,a.memberPwd
+			,a.memberBirthday
+			,a.memberGenderCD
+			,a.memberTypeCD
+			,a.memberPhoneNum
+			,a.memberDelNy
+			,a.memberRegDate
+			,a.memberModDate
+		from member a
+		where 1=1
+			AND memberDelNy=0
+	</select>
+   
+</mapper>
