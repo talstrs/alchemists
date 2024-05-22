@@ -6,7 +6,7 @@
 	<resultMap id="resultMapObj"
 		type="com.alchemists.infra.stadium.StadiumDto"></resultMap>
 		
-	<select id="stadiumList">
+	<select id="stadiumList" resultMap="resultMapObj">
 		select
 			stadiumSeq,
 			stadiumName,
@@ -19,7 +19,7 @@
 			stadium
 	</select>
 	
-	<select id="selectStadium">
+	<select id="selectStadium" resultMap="resultMapObj">
 		select
 			stadiumSeq,
 			stadiumName,
@@ -61,6 +61,10 @@
 			stadiumManagerName=#{stadiumManagerName},
 			stadiumModDate=now(),
 			stadiumDelNY=#{stadiumDelNY}
+		where 
+			1=1
+		and
+			stadiumSeq=#{stadiumSeq}
 	</update>
 	
 	<update id="ultStadium">

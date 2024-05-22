@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alchemists.infra.teamdetail.TeamDetailDao">
+
+	<resultMap id="resultMapObj"
+		type="com.alchemists.infra.teamdetail.TeamDetailDto"></resultMap>
+	
+	<!-- 팀 디테일 전체 리스트는 team selectOne에서 함께 보여주기 때문에 team과 join 필요 -->
+	<select id="TeamDetailList" resultMap="resultMapObj">
+		select 
+			a.teamDetailSeq,
+			a.teamDetailMemberSeqF,
+			a.teamDetailTeamSeqF,
+			a.teamDetailCaptainNY,
+			a.teamDetailMemberBackNum,
+			a.teamDetailMemberGoalCount,
+			a.teamDetailRegDate,
+			a.teamDetailModDate,
+			a.teamDetailDelNY,
+			b.memberName,
+			b.memberSeq,
+			c.teamSeq
+		from teamDetail a
+		inner join
+			member b
+		on 
+			a.teamDetailMemberSeqF=b.memberSeq
+		inner join
+			team c
+		on
+			a.teamDetailTeamSeqF=c.teamSeq
+		where 1=1
+	</select>
+	
+	<!-- teamDetail selectOne / 값에 해당하는 선수의 이름을 함께 표출하기 위해 join -->	
+	<select id="selectTeamDetail" resultMap="resultMapObj">
+		select 
+			a.teamDetailSeq,
+			a.teamDetailMemberSeqF,
+			a.teamDetailTeamSeqF,
+			a.teamDetailCaptainNY,
+			a.teamDetailMemberBackNum,
+			a.teamDetailMemberGoalCount,
+			a.teamDetailRegDate,
+			a.teamDetailModDate,
+			a.teamDetailDelNY,
+			b.memberName,
+			b.memberSeq
+		from teamDetail a
+		inner join
+			member b
+		where a.teamDetailMemberSeqF=b.memberSeq
+		and
+			a.teamDetailSeq=#{teamDetailSeq}
+	</select>
+
+
+	<!-- 팀 디테일 관련 메서드 -->
+	<insert id="insertTeamDetail">
+		insert into teamDetail (
+			teamDetailMemberSeqF,
+			teamDetailTeamSeqF,
+			teamDetailCaptainNY,
+			teamDetailMemberBackNum,
+			teamDetailMemberGoalCount,
+			teamDetailRegDate,
+			teamDetailModDate,
+			teamDetailDelNY
+		)values (
+			#{teamDetailMemberSeqF},
+			#{teamDetailTeamSeqF},
+			#{teamDetailCaptainNY},
+			#{teamDetailMemberBackNum},
+			#{teamDetailMemberGoalCount},
+			now(),
+			now(),
+			0
+		)
+	</insert>
+	
+	<update id="updateTeamDetail">
+		update teamDetail
+		set
+			teamDetailPwd=#{teamDetailPwd},
+			teamDetailCaptainNY=#{teamDetailCaptainNY},
+			teamDetailMemberBackNum=#{teamDetailMemberBackNum},
+			teamDetailMemberGoalCount=#{teamDetailMemberGoalCount},
+			teamDetailModDate=now()
+		where
+			1=1
+		and
+			teamDetailSeq=#{teamDetailSeq}	
+	</update>	
+
+	<update id="ultTeamDetail">
+		update teamDetail
+		set
+			teamDetailDelNY=1
+		where
+			1=1
+		and
+			teamDetailSeq=#{teamDetailSeq}
+	</update>
+		
+	
+	<delete id="delTeamDetail">
+		delete from teamDetail
+		where
+			teamDetailSeq=#{teamDetailSeq}
+	</delete>
+	
+	
+	
+</mapper>
