@@ -16,7 +16,7 @@ public class TeamController {
 	TeamDetailService teamDetailService;
 	
 	//team List
-	@RequestMapping (value = "")
+	@RequestMapping (value = "/teamList")
 	public String teamList (TeamDto teamDto, Model model) throws Exception {
 		
 		model.addAttribute("team", teamService.teamList());
@@ -25,7 +25,7 @@ public class TeamController {
 	}
 	
 	//team selectOne
-	@RequestMapping (value = "")
+	@RequestMapping (value = "/selectTeam")
 	public String selectTeam (TeamDto teamDto, Model model) throws Exception {
 		
 		model.addAttribute("item", teamService.selectTeam(teamDto));

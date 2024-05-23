@@ -12,7 +12,7 @@ public class TeamDetailController {
 	TeamDetailService teamDetailService;
 	
 	//teamDetail list
-	@RequestMapping(value = "")
+	@RequestMapping(value = "/teamDetailList")
 	public String teamDetailList (TeamDetailDto teamDetailDto, Model model) throws Exception {
 		
 		model.addAttribute("teamDetail", teamDetailService.selectTeamDetail(teamDetailDto));
@@ -20,7 +20,7 @@ public class TeamDetailController {
 		return "";
 	}
 	//teamDetail selectOne
-	@RequestMapping(value = "")
+	@RequestMapping(value = "/selectteamDetail")
 	public String selectTeamDetail (TeamDetailDto teamDetailDto, Model model)throws Exception {
 		
 		model.addAttribute("item", teamDetailService.selectTeamDetail(teamDetailDto));

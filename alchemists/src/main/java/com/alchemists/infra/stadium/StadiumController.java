@@ -12,7 +12,7 @@ public class StadiumController {
 	StadiumService stadiumService;
 	
 	//stadium List
-	@RequestMapping (value = "")
+	@RequestMapping (value = "/stadiumList")
 	public String stadiumList(StadiumDto stadiumDto, Model model) throws Exception {
 		
 		model.addAttribute("stadium", stadiumService.stadiumList());
@@ -22,7 +22,7 @@ public class StadiumController {
 	}
 	
 	//stadium SelectOne
-	@RequestMapping (value = "")
+	@RequestMapping (value = "/selectStadium")
 	public String selectStadium(StadiumDto stadiumDto, Model model) throws Exception {
 		
 		model.addAttribute("item", stadiumService.selectStadium(stadiumDto));
