@@ -32,7 +32,7 @@ public final class Constants {
 	);
 	
 	//로그인 인터셉터 기능 구현 시 필요한 로그인 화면 폼 URL
-	public static final String URL_XDMLOGINFORM = "/adminLoginRegister";
+	public static final String URL_LOGINFORM = "/memberUsrLogin";
 	
 	
 	
