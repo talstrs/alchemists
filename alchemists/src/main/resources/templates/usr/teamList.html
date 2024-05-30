@@ -610,27 +610,23 @@
 								</thead>
 								<tbody>
 									<!-- 여기서 th:each 시작 -->
-									<tr>
+									<tr th:each="team : ${team}">
 										<!-- 로고랑 팀 이름에 href 값 걸어서 상세 페이지로 이동하기 -->
 										<td class="team_logo" style-="width : 15%">
+											<!-- 여기에 팀 로고 이미지가 들어가야 함 -->
 											<figure class="product__thumb" style="padding-left : 25%;">
-												<a href="#"><img src="assets/images/samples/cart-sm-1.jpg" alt=""></a>
+												<a th:href="@{/teamInfo(teamSeq=${team.teamSeq, teamName=${team.teamName, teamDelNY=${team.teamDelNY})}"><img src="assets/images/samples/cart-sm-1.jpg" alt=""></a>
 											</figure>
 										</td>
-										<td class="team_name" style="width : 20%; text-align : center">
-											동호회 A
+										<td class="team_name" style="width : 20%; text-align : center" th:text="${team.teamName}">
 										</td>
 										<td class="team_captain" style="width : 12%; text-align : center">
-										<span>이땡땡</span>
+										<span th:text="${team.teamDetailCaptainNY == 1}"></span>
 										</td>
-										<td class="team_point" style="width : 12%; text-align : center">승점</td>
-										<td class="team_total_goals" style="width : 12%; text-align : center">500</td>
-										<td class="teamRegDate" style="width : 12%; text-align : center">
-											24-05-22
-										</td>
-										<td class="teamDelNY" style="width : 12%; text-align : center">
-											N/Y
-										</td>
+										<td class="team_point" style="width : 12%; text-align : center" th:text="${team.teamWinsCount}"></td>
+										<td class="team_total_goals" style="width : 12%; text-align : center" th:text="${team.teamGoalCount}"></td>
+										<td class="teamRegDate" style="width : 12%; text-align : center" th:text="${team.teamRegDate}"></td>
+										<td class="teamDelNY" style="width : 12%; text-align : center" th:text="${team.teamDelNY}"></td>
 									</tr>
 								</tbody>
 							</table>

@@ -615,7 +615,7 @@
 								</div>
 		
 							</header>
-							<div class="card__content">
+							<div class="card__content" th:each="stadium : ${stadium}">
 		
 								<!-- Products -->
 								<ul class="products products--list products--list-condensed">
@@ -637,7 +637,7 @@
 												<div class="product__header-inner">
 													<!-- stadium local 칼럼을 추가한다면 이 부분에 들어가게 될 것-->
 													<span class="product__category">Sneakers</span>
-													<h2 class="product__title">Stadium Name</h2>
+													<h2 class="product__title" th:text="${stadium.stadiumName}"></h2>
 													<div class="product__ratings">
 														<i class="fas fa-star"></i>
 														<i class="fas fa-star"></i>
@@ -649,15 +649,15 @@
 											</header>
 		
 											<div class="product__excerpt">
-												관리자 이름 : 💬
+												<p th:text="'Manager Name : ' + ${stadium.stadiumManagerName}"></p>
 											</div>
 
 											<div class="product__excerpt">
-												경기장 주소 : 🏟️
+												<p th:text="'Stadium Addr : ' + ${stadium.stadiumAddr}"
 											</div>
 		
 											<footer class="product__footer" style="padding-left : 96%;">
-												<a href="_soccer_shop-cart.html" class="btn btn-primary-inverse btn-icon product__add-to-cart"><i class="bi bi-clipboard-check"></i>Reservation</a>
+												<a href="@{/selectStadium(stadiumSeq=${stadium.stadiumSeq}, stadiumName=${stadium.stadiumName})}" class="btn btn-primary-inverse btn-icon product__add-to-cart"><i class="bi bi-clipboard-check"></i>Reservation</a>
 											</footer>
 										</div>
 									</li>

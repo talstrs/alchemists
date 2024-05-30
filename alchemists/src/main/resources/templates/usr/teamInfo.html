@@ -615,24 +615,27 @@
 		
 							<header class="product__header">
 								<div class="product__header-inner">
-									<h2 class="product__title">Team Name</h2>
+									<h2 class="product__title" th:text="${item.teamName}"></h2>
 							</header>
 		
 							<div class="product__excerpt product__excerpt--sm">
 								<div class="row">
 									<div class="col-6">
 										<h5>Total Goals</h5>
-										<p>: ~~~</p>
+										<p th:text="' : ' + ${item.teamGoalCount}"></p>
 										<h5>Total Points</h5>
-										<p>: 승점 or 승리 횟수</p>
+										<p th:text="' : ' + ${item.teamWinsCount}"></p>
 									</div>
 									<div class="col-6">
 										<div class="button-group" style="padding-left : 57%;">
-		
+											
+											<!-- 팀에 속한 선수 리스트 열람 -->
 											<a href="_soccer_shop-cart.html" class="btn btn-primary-inverse btn-icon product__add-to-cart mr-1" style=" text-align : center; width : 150px;">Players</a>
 		
+											<!-- 팀 경기 일정 열람 -->
 											<a href="_soccer_shop-cart.html" class="btn btn-primary-inverse btn-icon product__add-to-cart mt-2"style="text-align : center; width : 150px;">Schedule</a>
 		
+											<!-- 랭킹 페이지로 이동 (전체 팀 순위 열람) -->
 											<a href="_soccer_shop-cart.html" class="btn btn-primary-inverse btn-icon product__add-to-cart mt-2"style="text-align : center; width : 150px;">Ranking</a>
 		
 										</div>

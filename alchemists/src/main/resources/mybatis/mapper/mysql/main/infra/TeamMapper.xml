@@ -9,16 +9,24 @@
 	<!-- 팀 리스트 셀렉 -->
 	<select id="teamList" resultMap="resultMapObj">
 		select
-			teamSeq,
-			teamName,
-			teamWinsCount,
-			teamGoalCount,
-			teamPwd
-			teamRegDate,
-			teamModDate,
-			teamDelNY
+			a.teamSeq,
+			a.teamName,
+			a.teamWinsCount,
+			a.teamGoalCount,
+			a.teamPwd
+			a.teamRegDate,
+			a.teamModDate,
+			a.teamDelNY,
+			b.teamDetailCaptainNY
 		from
-			team
+			team a
+		inner join
+			teamDetail b
+			on 	
+			a.teamSeq=b.teamDetailTeamSeqF
+		where
+			1=1
+
 	</select>
 	
 	<!-- 팀 selectOne / team Detail 중 teamSeq가 일치하는 멤버 리스트까지 함께 띄워줄 것. -->
@@ -31,10 +39,14 @@
 			a.teamPwd,
 			a.teamRegDate,
 			a.teamModDate,
-			a.teamDelNY
+			a.teamDelNY,
+			b.teamDetailCaptainNY,
 		from
 			team a
-
+		inner join
+			teamDetail b
+			on
+				a.teamSeq=b.teamDetailTeamSeqF
 		where 1=1
 		and
 			a.teamSeq=#{teamSeq}
@@ -98,7 +110,6 @@
 			a.teamDetailSeq,
 			a.teamDetailMemberSeqF,
 			a.teamDetailTeamSeqF,
-			a.teamDetailCaptainNY,
 			a.teamDetailMemberBackNum,
 			a.teamDetailMemberGoalCount,
 			a.teamDetailRegDate,
