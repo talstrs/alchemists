@@ -7,7 +7,7 @@
 		type="com.alchemists.infra.match.MatchDto"></resultMap>
 		
 	<sql id="commonSelectMatch">
-		FROM Match m
+		FROM match m
 		LEFT JOIN matchreply mr ON m.matchSeq = mr.matchSeqF 
 		LEFT JOIN stadium s ON m.stadiumSeqF = s.stadiumSeq
 		LEFT JOIN timeline tl ON m.matchSeq = tl.matchSeqF
@@ -26,6 +26,8 @@
 			<when test="voOption == 1">AND m.matchSeq = #{voValue}</when>
 		</choose>
 	</sql>
+	
+	
 
 	<select id="selectListMatchWithPaging" resultMap="resultMapObj">
 	<include refid="base.selectHeader" />
@@ -70,41 +72,121 @@
 	</select>
 	
 	
-	<select id="selectListWithoutPaging" resultMap="resultMapObj">
-			select
-		codeSeq
-		,codeName
-		,codeGroupSeqF
-		,codeGroupName as xcodeGroupName
-		where 1=1
-		AND codeDelNy=0
+	<select id="selectListMatchWithoutPaging" resultMap="resultMapObj">
+		select
+				m.matchSeq,
+			    m.matchDateTime,
+			    m.matchCancelNY,
+			    m.matchCancelMemo,
+			    m.matchHomeTeamSeqF,
+			    m.matchHomeYellowCardCount,
+			    m.matchHomeRedCardCount,
+			    m.matchHomeGoalCount,
+			    m.matchHomeFoulCount,
+			    m.matchHomeOwnGoalCount,
+			    m.matchHomeTotalGoalCount,
+			    m.matchAwayTeamSeqF,
+			    m.matchAwayYellowCardCount,
+			    m.matchAwayRedCardCount,
+			    m.matchAwayGoalGount,
+			    m.matchAwayFoulCount,
+			    m.matchAwayOwnGoalCount,
+			    m.matchAwayTotalGoalCount,
+			    m.matchRegDate,
+			    m.matchModDate,
+			    m.matchDelNY,
+			    s.stadiumSeq,
+			    s.stadiumName,
+			    s.stadiumAddr,
+			    s.stadiumManagerName,
+			    t.teamName,
+			    t.teamWinsCount,
+			    t.teamGoalCount
+		FROM Match m
+		LEFT JOIN matchreply mr ON m.matchSeq = mr.matchSeqF 
+		LEFT JOIN stadium s ON m.stadiumSeqF = s.stadiumSeq
+		LEFT JOIN timeline tl ON m.matchSeq = tl.matchSeqF
+		LEFT JOIN team t ON m.matchHomeTeamSeqF = t.teamSeq
+		
+		WHERE 1=1
 	</select>
 	
 
-	<select id="selectOne" resultMap="resultMapObj">
+	<select id="selectOneMatch" resultMap="resultMapObj">
 		select
-			codeSeq
-			,codeName
-			,codeDelNy
-			,codeModDate
-			,codeRegDate
-			From code
+			    matchDateTime,
+			    matchCancelNY,
+			    matchCancelMemo,
+			    matchHomeTeamSeqF,
+			    matchHomeYellowCardCount,
+			    matchHomeRedCardCount,
+			    matchHomeGoalCount,
+			    matchHomeFoulCount,
+			    matchHomeOwnGoalCount,
+			    matchHomeTotalGoalCount,
+			    matchAwayTeamSeqF,
+			    matchAwayYellowCardCount,
+			    matchAwayRedCardCount,
+			    matchAwayGoalGount,
+			    matchAwayFoulCount,
+			    matchAwayOwnGoalCount,
+			    matchAwayTotalGoalCount,
+			    matchRegDate,
+			    matchModDate,
+			    matchDelNY
+			From match
 		where 1=1
-				and codeSeq=#{codeSeq}
+				and matchSeq=#{matchSeq}
 	</select>
 
 	<insert id="insert">
-		insert into code(
-			codeName
-		    ,codeDelNy
-		    ,codeGroupSeqF
+		insert into match(
+			matchDateTime
+			,matchCancelNY
+			,matchCancelMemo
+			,matchHomeTeamSeqF
+			,matchHomeYellowCardCount
+			,matchHomeRedCardCount
+			,matchHomeGoalCount
+			,matchHomeOwnGoalCount
+			,matchHomeFoulCount
+			,matchHomeTotalGoalCount
+			,matchAwayTeamSeqF
+			,matchAwayYellowCardCount
+			,matchAwayRedCardCount
+			,matchAwayFoulCount
+			,matchAwayGoalGount
+			,matchAwayOwnGoalCount
+			,matchAwayTotalGoalCount
+			,matchModDate
+			,matchRegDate
+			,matchDelNY
+			,stadiumSeqF
 		   )values(
-			    #{codeName}
+			    #{matchDateTime}
 			    ,0
-			    ,#{codeGroupSeqF}
+			    ,#{matchCancelMemo}
+			    ,#{matchHomeTeamSeqF}
+			    ,#{matchHomeYellowCardCount}
+			    ,#{matchHomeRedCardCount}
+			    ,#{matchHomeGoalCount}
+			    ,#{matchHomeOwnGoalCount}
+			    ,#{matchHomeFoulCount}
+			    ,#{matchHomeTotalGoalCount}
+			    ,#{matchAwayTeamSeqF}
+			    ,#{matchAwayYellowCardCount}
+			    ,#{matchAwayRedCardCount}
+			    ,#{matchAwayFoulCount}
+			    ,#{matchAwayGoalGount}
+			    ,#{matchAwayOwnGoalCount}
+			    ,#{matchAwayTotalGoalCount}
+			    ,now()
+			    ,now()
+			    ,0
+			    ,#{stadiumSeqF}
 		    )
 
-		<selectKey resultType="String" keyProperty="codeSeq"
+		<selectKey resultType="String" keyProperty="matchSeq"
 			order="AFTER">
 			select last_insert_id()
 		</selectKey>
@@ -112,7 +194,7 @@
 
 
 	<update id="update">
-		UPDATE code
+		UPDATE match
 		SET
 		codeName=#{codeName}
 		,codeGroupSeqF=#{codeGroupSeqF}
@@ -121,29 +203,115 @@
 	</update>
 
 	<update id="uelete">
-		update code
+		update match
 		set 
-		codeDelNy=1
+		matchDelNy=1
 		where 1=1
-		 and codeSeq = #{codeSeq}
+		 and matchSeq = #{matchSeq}
 	</update>
 
 	<delete id="delete">
-		delete From code
+		delete From match
 			where 1=1
-		and codeSeq=#{codeSeq}
+		and matchSeq=#{matchSeq}
 	</delete>
 	
-	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
-			SELECT 
-				codeSeq
-				, codeName
-				, codeGroupSeqF
-			FROM
-				code
-			WHERE 1=1
-				AND codeDelNy = 0
-	   </select>
+	<!--  ###  -->
+	<!--  matchReply  -->
+	<!--  ###  -->
+	
+	<sql id ="commonSelectMatchReply">
+		FROM matchreply mr
+		LEFT JOIN match m ON m.matchSeq = mr.matchSeqF 
+		LEFT JOIN team t ON m.matchReplyTeamSeqF = t.teamSeq
+		
+		WHERE 1=1
+		
+			<if test="voDelNy != null and !voDelNy.equals('')">AND mr.matchReplyDelNy = #{voDelNy}</if>
+			
+		<choose>
+			<when test="voOptionDate == 1">AND mr.matchReplyRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			<when test="voOptionDate == 2">AND mr.matchReplyModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+		</choose>
+
+		<choose>
+			<when test="voOption == 1">AND m.matchReplySeq = #{voValue}</when>
+		</choose>
+	</sql>
 	
 
+
+	<select id="selectListMatchReplyWithPaging" resultMap="resultMapObj">
+	<include refid="base.selectHeader" />
+			select
+				mr.matchReplySeq
+				,mr.matchReplyTeamSeqF
+				,mr.matchReplyJoinNy
+				,mr.matchReplyRegDate
+				,mr.matchReplyModDate
+				,mr.matchSeqF
+				,m.matchAwayTeamSeqF
+				,t.teamSeq
+				,t.teamName
+		<include refid="commonSelectMatchReply" />
+		ORDER BY mr.matchReplySeq desc
+		<include refid="base.selectFooterMysql" />
+	</select>
+	
+	
+	<select id="selectCountMatchReply" resultType="Integer">
+		SELECT COUNT(*)
+			<include refid="commonSelectMatchReply" />
+	</select>
+	
+	
+	<select id="selectListMatchReplyWithoutPaging" resultMap="resultMapObj">
+		select
+				m.matchSeq,
+			    m.matchDateTime,
+			    m.matchCancelNY,
+			    m.matchCancelMemo,
+			    m.matchHomeTeamSeqF,
+			    m.matchHomeYellowCardCount,
+			    m.matchHomeRedCardCount,
+			    m.matchHomeGoalCount,
+			    m.matchHomeFoulCount,
+			    m.matchHomeOwnGoalCount,
+			    m.matchHomeTotalGoalCount,
+			    m.matchAwayTeamSeqF,
+			    m.matchAwayYellowCardCount,
+			    m.matchAwayRedCardCount,
+			    m.matchAwayGoalGount,
+			    m.matchAwayFoulCount,
+			    m.matchAwayOwnGoalCount,
+			    m.matchAwayTotalGoalCount,
+			    m.matchRegDate,
+			    m.matchModDate,
+			    m.matchDelNY,
+			    s.stadiumSeq,
+			    s.stadiumName,
+			    s.stadiumAddr,
+			    s.stadiumManagerName,
+			    t.teamName,
+			    t.teamWinsCount,
+			    t.teamGoalCount
+		FROM Match m
+		LEFT JOIN matchreply mr ON m.matchSeq = mr.matchSeqF 
+		LEFT JOIN stadium s ON m.stadiumSeqF = s.stadiumSeq
+		LEFT JOIN timeline tl ON m.matchSeq = tl.matchSeqF
+		LEFT JOIN team t ON m.matchHomeTeamSeqF = t.teamSeq
+		
+		WHERE 1=1
+	</select>
+
+	<update id="updateMatchReply">
+		UPDATE matchReply
+		SET
+		matchReplyJoinNy=1
+		where 1=1
+			and matchReplySeq=#{matchReplySeq}
+	</update>
+
+
+	
 </mapper>
