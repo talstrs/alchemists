@@ -15,9 +15,9 @@ public class StadiumController {
 	@RequestMapping (value = "/stadiumList")
 	public String stadiumList(StadiumDto stadiumDto, Model model) throws Exception {
 		
-		model.addAttribute("stadium", stadiumService.stadiumList());
+		model.addAttribute("list", stadiumService.stadiumList());
 		
-		return "";
+		return "usr/stadiumList";
 		
 	}
 	
