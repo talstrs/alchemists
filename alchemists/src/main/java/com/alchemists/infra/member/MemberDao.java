@@ -9,6 +9,10 @@ public interface MemberDao {
 	
 	public int memberInst(MemberDto dto);
 	
+	public int memberUsrUpdt(MemberDto dto);
+	
+	public int memberUsrPwdUpdt(MemberDto dto);
+	
 	public int memberUpdt(MemberDto dto);
 	
 	public int memberUelt(MemberDto dto);
@@ -16,5 +20,9 @@ public interface MemberDao {
 	public int memberDelt(MemberDto dto);
 	
 	public List<MemberDto> selectListWithoutPaging(MemberVo vo); 
+	
+	// 로그인 체크
+	public MemberDto selectOneLoginCheck(MemberDto dto);
+	
 
 }

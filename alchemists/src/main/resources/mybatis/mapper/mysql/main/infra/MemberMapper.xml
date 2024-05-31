@@ -99,7 +99,23 @@
 			memberName=#{memberName},
 			memberGenderCd=#{memberGenderCd},
 			memberTypeCd=#{memberTypeCd},
-			memberAddr=#{memberAddr},
+			memberDelNy=#{memberDelNy},
+			memberPhoneNum=#{memberPhoneNum},
+			memberModDate=now()
+			
+		where 1=1
+			and memberSeq=#{memberSeq}
+	</update>
+	
+		<!-- 멤버 정보 수정 -->
+	<update id="memberUsrUpdt">
+		update member
+		set
+			memberID=#{memberID},
+			memberBirthday=#{memberBirthday},
+			memberName=#{memberName},
+			memberGenderCd=#{memberGenderCd},
+			memberTypeCd=#{memberTypeCd},
 			memberDelNy=#{memberDelNy},
 			memberPhoneNum=#{memberPhoneNum},
 			memberModDate=now()
@@ -107,6 +123,19 @@
 		where 1=1
 			and memberSeq=#{memberSeq}
 	</update>							
+	
+	
+		<!-- 멤버 정보 수정 -->
+	<update id="memberUsrPwdUpdt">
+		update member
+		set
+			memberPwd=#{memberPwd},
+			memberModDate=now()
+			
+		where 1=1
+			and memberSeq=#{memberSeq}
+	</update>							
+								
 
 	<!-- 멤버 삭제 / Uelete -->
 	<update id="memberUelt">
@@ -145,6 +174,20 @@
 		from member a
 		where 1=1
 			AND memberDelNy=0
+	</select>
+	
+	  <!-- 로그인 체크 -->
+	<select id="selectOneLoginCheck" resultMap="resultMapObj">
+		select
+			a.memberSeq
+			,a.memberID
+			,a.memberPwd
+			,a.memberName
+		from
+			member a
+		where 1=1
+		    and a.memberID = #{memberID}
+		    
 	</select>
    
 </mapper>
