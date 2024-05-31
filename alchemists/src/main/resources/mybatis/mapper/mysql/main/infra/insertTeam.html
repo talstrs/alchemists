@@ -4,7 +4,7 @@
 
 	<!-- Basic Page Needs
 	================================================== -->
-	<title>Alchemists Soccer Club &amp; Sports News HTML Template - Product</title>
+	<title>Alchemists Soccer Club &amp; Sports News HTML Template - Account</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="Sports Club, League and News HTML Template">
@@ -400,12 +400,12 @@
 									<ul class="main-nav__sub">
 										<li class=""><a href="_soccer_shop-grid.html">Shop - Grid</a></li>
 										<li class=""><a href="_soccer_shop-list.html">Shop - List</a></li>
-										<li class="active"><a href="_soccer_shop-product.html">Single Product</a></li>
+										<li class=""><a href="_soccer_shop-product.html">Single Product</a></li>
 										<li class=""><a href="_soccer_shop-cart.html">Shopping Cart</a></li>
 										<li class=""><a href="_soccer_shop-checkout.html">Checkout</a></li>
 										<li class=""><a href="_soccer_shop-wishlist.html">Wishlist</a></li>
 										<li class=""><a href="_soccer_shop-login.html">Login</a></li>
-										<li class=""><a href="_soccer_shop-account.html">Account</a></li>
+										<li class="active"><a href="_soccer_shop-account.html">Account</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -570,11 +570,11 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 offset-md-1">
-						<h1 class="page-heading__title"><span class="highlight">Team Name</span></h1>
+						<h1 class="page-heading__title">Create <span class="highlight">Team</span></h1>
 						<ol class="page-heading__breadcrumb breadcrumb">
 							<li class="breadcrumb-item"><a href="_soccer_index.html">Home</a></li>
 							<li class="breadcrumb-item"><a href="_soccer_shop-grid.html">Team</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Team Name</li>
+							<li class="breadcrumb-item active" aria-current="page">Create Team</li>
 						</ol>
 					</div>
 				</div>
@@ -588,168 +588,67 @@
 		<div class="site-content">
 			<div class="container">
 		
-				<!-- Single Product -->
-				<div class="products products--list products--list-lg">
+				<div class="row">
 		
-					<div class="product__item card">
+					<div class="col-lg-12">
 		
-						<div class="product__img" style="width : 30%;">
-							<div class="product__img-holder">
-		
-								<!-- Product Slider - Soccer -->
-								<div class="product__slider-soccer-wrapper">
-									<!-- Product Slider -->
-									<div class="product__slider-soccer">
-										<div class="product__slide">
-											<img src="assets/images/soccer/samples/_soccer_product-img6-lg.jpg" alt="" style="height : 200px;">
-										</div>
-									</div>
-									<!-- Product Slider / End -->
-								</div>
-								<!-- Product Slider - Soccer / End -->
-		
+						<!-- Personal Information -->
+						<div class="card card--lg">
+							<div class="card__header">
+								<h4>Team Information</h4>
 							</div>
-						</div>
+							<div class="card__content">
+								<form action="#" class="df-personal-info">
 		
-						<div class="product__content card__content">
-		
-							<header class="product__header">
-								<div class="product__header-inner">
-									<h2 class="product__title" th:text="${item.teamName}"></h2>
-							</header>
-		
-							<div class="product__excerpt product__excerpt--sm">
-								<div class="row">
-									<div class="col-6">
-										<h5>Total Goals</h5>
-										<p th:text="' : ' + ${item.teamGoalCount}"></p>
-										<h5>Total Points</h5>
-										<p th:text="' : ' + ${item.teamWinsCount}"></p>
-									</div>
-									<div class="col-6">
-										<div class="button-group" style="padding-left : 57%;">
-											
-											<!-- href 링크 값은 controller value로 이후 연결 -->
-											<!-- 팀에 속한 선수 리스트 열람 -->
-											<a href="_soccer_shop-cart.html" class="btn btn-primary-inverse btn-icon product__add-to-cart mr-1" style=" text-align : center; width : 150px;">Players</a>
-		
-											<!-- 팀 경기 일정 열람 -->
-											<a href="_soccer_shop-cart.html" class="btn btn-primary-inverse btn-icon product__add-to-cart mt-2"style="text-align : center; width : 150px;">Schedule</a>
-		
-											<!-- 랭킹 페이지로 이동 (전체 팀 순위 열람) -->
-											<a href="_soccer_shop-cart.html" class="btn btn-primary-inverse btn-icon product__add-to-cart mt-2"style="text-align : center; width : 150px;">Ranking</a>
-		
-										</div>
-									</div>
-								</div>
-								
-
-								<div class="row">
-									<div class="col-6">
-									<!-- Widget: Team Leaders -->
-									<aside class="widget widget--sidebar card card--has-table widget-leaders">
-										<div class="widget__title card__header">
-											<h4>Team Goalscorers</h4>
-										</div>
-										<div class="widget__content card__content">
-
-											<!-- Leader: Points -->
-											<div class="table-responsive">
-												<table class="table team-leader">
-													<thead>
-														<tr>
-															<th class="team-leader__type"></th>
-															<th class="team-leader__goals">G</th>
-														</tr>
-													</thead>
-													<tbody>
-
-														<tr>
-															<td class="team-leader__player">
-																<div class="team-leader__player-info">
-																	<figure class="team-leader__player-img team-leader__player-img--sm">
-																		<img src="assets/images/soccer/samples/goalscorer_01.jpg" alt="">
-																	</figure>
-																	<div class="team-leader__player-inner">
-																		<h5 class="team-leader__player-name">Member Name</h5>
-																		<span class="team-leader__player-position">Member Position</span>
-																	</div>
-																</div>
-															</td>
-															<td class="team-leader__goals">11</td>
-														</tr>
-													</tbody>
-												</table>
+									<div class="form-group form-group--upload">
+										<div class="form-group__avatar">
+											<img src="assets/images/samples/avatar-empty.png" alt="">
+											<div class="form-group__label">
+												<h6>Logo Image</h6>
+												<span>Minimum size 60x60px</span>
 											</div>
-											<!-- Leader: Points / End -->
-
-
 										</div>
-									</aside>
-									<!-- Widget: Team Leaders / End -->
+										<div class="form-group__upload">
+											<label class="btn btn-default btn-xs btn-file">
+												Upload Image... <input type="file" style="display: none;">
+											</label>
+										</div>
 									</div>
-
-									<div class="col-6">
-									<!-- Widget: Latest Results -->
-									<aside class="widget card widget--sidebar widget-results">
-										<div class="widget__title card__header card__header--has-btn">
-											<h4>Latest Results</h4>
-											<!-- 링크는 이후 연결 -->
-											<a href="#" class="btn btn-default btn-outline btn-xs card-header__button">See Full Results</a>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-email">Team Name</label>
+												<input type="email" class="form-control" value="" name="teamName" id="teamName" placeholder="Please enter name of your team">
+											</div>
 										</div>
-										<div class="widget__content card__content">
-											<ul class="widget-results__list">
 
-												<!-- Game #0 -->
-												<li class="widget-results__item">
-													<div class="widget-results__header justify-content-center">
-														<div class="widget-results__title">경기 날짜 (matchDateTime)</div>
-													</div>
-													<div class="widget-results__content">
-														<div class="widget-results__team widget-results__team--first">
-															<figure class="widget-results__team-logo">
-																<img src="assets/images/soccer/logos/alchemists_s_shield.png" alt="">
-															</figure>
-															<div class="widget-results__team-details">
-																<h5 class="widget-results__team-name">matchHomeTeamSeq > Name 받아오기</h5>
-															</div>
-														</div>
-														<div class="widget-results__result">
-															<div class="widget-results__score">
-																<span class="widget-results__score-winner">2</span> - <span class="widget-results__score-loser">0</span>
-																<!-- 해당 팀이 이 경기에서 home / away 여부에 따라 표출되는 값 다름 -->
-																<div class="widget-results__status">Home / Away</div>
-															</div>
-														</div>
-														<div class="widget-results__team widget-results__team--second">
-															<figure class="widget-results__team-logo">
-																<img src="assets/images/samples/logos/sharks_shield.png" alt="">
-															</figure>
-															<div class="widget-results__team-details">
-																<h5 class="widget-results__team-name">matchAwayTeamSeq > Name 받아오기</h5>
-															</div>
-														</div>
-													</div>
-												</li>
-												<!-- Game #0 / End -->
-											</ul>
-										</div>
-									</aside>
-									<!-- Widget: Latest Results / End -->
 									</div>
-								</div>
+		
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-password">Team Password</label>
+												<input type="password" class="form-control" value="" name="teamPwd" id="teamPwd" placeholder="This is the password that will distinguish the invited team members.">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-password-repeat">Repeat Password</label>
+												<input type="password" class="form-control" value="" name="repeat-teamPwd" id="repeat-teamPwd" placeholder="**********">
+											</div>
+										</div>
+									</div>
+		
+									<div class="form-group--submit">
+										<button type="submit" class="btn btn-default btn-lg btn-block">See all the changes</button>
+									</div>
+		
+								</form>
 							</div>
-
 						</div>
+						<!-- Personal Information / End -->
 					</div>
-		
 				</div>
-				<!-- Single Product / End -->
-		
-				<!-- -->
-		
-				
-		
 			</div>
 		</div>
 		

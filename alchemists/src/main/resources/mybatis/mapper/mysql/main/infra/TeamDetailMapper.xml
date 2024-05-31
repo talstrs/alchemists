@@ -30,7 +30,7 @@
 			team c
 		on
 			a.teamDetailTeamSeqF=c.teamSeq
-		where 1=1
+		where c.teamSeq = #{teamSeq}
 	</select>
 	
 	<!-- teamDetail selectOne / 값에 해당하는 선수의 이름을 함께 표출하기 위해 join -->	
@@ -61,7 +61,7 @@
 		insert into teamDetail (
 			teamDetailMemberSeqF,
 			teamDetailTeamSeqF,
-			teamDetailCaptainNY,
+			teamDetailCaptainNY, <!-- 한 팀 내에 값이 Y인 선수가 이미 존재한다면, 건들 수 없도록? 아니면 애초에 0을 기본 값으로 찍히도록? -->
 			teamDetailMemberBackNum,
 			teamDetailMemberGoalCount,
 			teamDetailRegDate,
@@ -71,7 +71,7 @@
 			#{teamDetailMemberSeqF},
 			#{teamDetailTeamSeqF},
 			#{teamDetailCaptainNY},
-			#{teamDetailMemberBackNum},
+			#{teamDetailMemberBackNum}, <!-- 한 팀 내에 해당 번호가 존재하고 있다면 다른 번호를 선택하게 하도록 설정해주기 -->
 			#{teamDetailMemberGoalCount},
 			now(),
 			now(),
