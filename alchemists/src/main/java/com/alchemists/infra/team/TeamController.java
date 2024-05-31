@@ -21,7 +21,7 @@ public class TeamController {
 		
 		model.addAttribute("team", teamService.teamList());
 		
-		return "";
+		return "/usr/teamList";
 	}
 	
 	//team selectOne

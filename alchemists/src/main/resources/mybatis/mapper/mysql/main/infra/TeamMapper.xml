@@ -13,7 +13,7 @@
 			a.teamName,
 			a.teamWinsCount,
 			a.teamGoalCount,
-			a.teamPwd
+			a.teamPwd,
 			a.teamRegDate,
 			a.teamModDate,
 			a.teamDelNY,

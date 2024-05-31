@@ -615,7 +615,7 @@
 								</div>
 		
 							</header>
-							<div class="card__content" th:each="stadium : ${stadium}">
+							<div class="card__content" th:if="${!#lists.isEmpty(list)}" th:each="stadium : ${list}">
 		
 								<!-- Products -->
 								<ul class="products products--list products--list-condensed">
