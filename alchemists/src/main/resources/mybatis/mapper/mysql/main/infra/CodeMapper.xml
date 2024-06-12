@@ -127,8 +127,8 @@
 		resultMap="resultMapObj">
 		SELECT
 		codeSeq
-		, codeName
-		, codeGroupSeqF
+		,codeName
+		,codeGroupSeqF
 		FROM
 		code
 		WHERE 1=1

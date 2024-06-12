@@ -24,6 +24,14 @@ public class MemberService {
 		return memberDao.memberInst(dto);
 	}
 	
+	public int memberUsrUpdt(MemberDto dto) {
+		return memberDao.memberUsrUpdt(dto);
+	}
+	
+	public int memberUsrPwdUpdt(MemberDto dto) {
+		return memberDao.memberUsrPwdUpdt(dto);
+	}
+	
 	public int memberUpdt(MemberDto dto) {
 		return memberDao.memberUpdt(dto);
 	}
@@ -38,6 +46,11 @@ public class MemberService {
 	
 	public List<MemberDto> selectListWithoutPaging(MemberVo vo) {
 		return memberDao.selectListWithoutPaging(vo);
+	}
+	
+	// 로그인 체크
+	public MemberDto selectOneLoginCheck(MemberDto dto) {
+		return memberDao.selectOneLoginCheck(dto);
 	}
 
 }
