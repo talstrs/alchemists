@@ -24,7 +24,7 @@ public class MemberController {
 	public String usrLogin() throws Exception{
 		
 	
-	return  "usr/usrLogin";
+	return  "usr/usrLogin2";
 }
 	
 	// 로그인 체크
