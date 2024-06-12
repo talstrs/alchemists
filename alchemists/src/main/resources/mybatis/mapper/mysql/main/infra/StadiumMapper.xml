@@ -17,6 +17,8 @@
 			stadiumDelNY
 		from
 			stadium
+		where
+			1=1
 	</select>
 	
 	<select id="selectStadium" resultMap="resultMapObj">
